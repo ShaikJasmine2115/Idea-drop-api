@@ -18,6 +18,11 @@ router.post('/register', async (req,res, next)=>{
             throw new Error("Please fill in all fields");
         }
 
+        if(password.length < 8){
+            res.status(400);
+            throw new Error("Password must be at least 8 characters long");
+        }
+
         const existingUser = await User.findOne({ email });
 
         if(existingUser){
